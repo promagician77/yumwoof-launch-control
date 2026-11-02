@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<title>Launch Control Sample</title>
+<link rel="stylesheet" href="../site/style.css">
+<style>
+  @page { size: Letter; margin: 0; }
+  :root { color-scheme: light; }
+  html, body { background: #fff; }
+  body { font-size: 10.5px; line-height: 1.42; }
+  .sheet { width: 8.5in; height: 11in; padding: 0.42in 0.45in 0.36in; overflow: hidden; position: relative; page-break-after: always; background: var(--page); }
+  .sheet:last-child { page-break-after: auto; }
+  .eyebrow { font-size: 9.5px; margin: 0 0 4px; }
+  h1 { font-size: 24px; max-width: none; letter-spacing: -.02em; }
+  h2 { font-size: 15px; margin: 0 0 2px; letter-spacing: -.01em; }
+  h3 { font-size: 11.5px; margin: 0 0 4px; }
+  .lede { font-size: 11px; margin: 5px 0 0; max-width: none; }
+  .disclose { font-size: 9.5px; padding: 5px 9px; margin: 8px 0 0; max-width: none; }
+  .stats { gap: 7px; margin: 10px 0 0; }
+  .stat { padding: 7px 10px; border-radius: 9px; }
+  .stat dd { font-size: 17px; } .stat dt { font-size: 9.5px; } .stat small { font-size: 8.5px; }
+  .card { padding: 9px 11px; border-radius: 10px; }
+  .legend { font-size: 9px; gap: 3px 12px; margin: 0 0 4px; }
+  .sw { width: 11px; height: 8px; }
+  .sec { margin-top: 10px; }
+  .sub { color: var(--ink2); margin: 0 0 6px; font-size: 10px; }
+  table.t { font-size: 9.3px; } table.t th { font-size: 8.8px; padding: 3px 5px; } table.t td { padding: 3.5px 5px; }
+  ul.clean { padding-left: 14px; margin: 2px 0 0; } ul.clean li { margin: 2.5px 0; }
+  .two { display: grid; grid-template-columns: 1.05fr 1fr; gap: 9px; margin-top: 9px; }
+  .three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; margin-top: 9px; }
+  .foot { position: absolute; left: 0.45in; right: 0.45in; bottom: 0.2in; font-size: 8.3px; color: var(--muted); display: flex; justify-content: space-between; gap: 12px; }
+  .d { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .crit { color: var(--crit); } .okc { color: var(--ok); }
+  ol.steps { margin: 2px 0 0; padding-left: 16px; } ol.steps li { margin: 2px 0; } ol.steps .who { color: var(--crit); font-weight: 650; }
+  .gl b { font-variant-numeric: tabular-nums; }
+  #hidden { display: none; }
+  .sheet .stats { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .sheet .note { font-size: 9px !important; }
+  .sheet .gantt text { font-size: 12.5px; }
+  #conf p.note { margin: 4px 0 0; }
+</style>
+</head>
+<body>
+<div id="hidden"><dl id="stats"></dl><div id="tablist"></div><main id="panels"></main><div id="tip"></div></div>
+
+<section class="sheet" id="s1">
+  <p class="eyebrow">Launch Control · product development launch system · US pet food · sample</p>
+  <h1>Every date has an owner. Every slip shows where it lands.</h1>
+  <p class="disclose"><b>Read this first:</b> one fictional SKU, Brindle &amp; Co. Air-Dried Salmon &amp; Pumpkin, planned from brief to go-live on a working-day calendar. Brand, vendors, durations and costs are illustrative. The schedule calculation is tested. US label notes summarise FDA and AAFCO sources and are not legal advice. The live version lets you tick slips and watch every tab recalculate.</p>
+  <dl class="stats" id="pstats"></dl>
+  <div class="card sec" id="gantt"></div>
+  <div class="two">
+    <div class="card"><h3>What the plan says</h3><ul class="clean" id="says"></ul></div>
+    <div class="card"><h3>What if… (each slip on its own)</h3><table class="t" id="scen"></table></div>
+  </div>
+  <div class="foot"><span>Launch Control sample · page 1 of 2</span><span>Calculated plan · status date Mon, Jan 11, 2027</span></div>
+</section>
+
+<section class="sheet" id="s2">
+  <h2>Four projects, one calendar</h2>
+  <p class="sub">The launch runs beside a reformulation, a packaging refresh to the new AAFCO label format and a line extension. Conflicts come from the bookings, not from memory.</p>
+  <div class="card" id="pf"></div>
+  <div class="card sec" id="conf"></div>
+  <div class="three">
+    <div class="card"><h3>Stage gates, dated by the plan</h3><div id="gates"></div></div>
+    <div class="card"><h3>Artwork routing: 8 steps, no skipping</h3><ol class="steps" id="route"></ol></div>
+    <div class="card"><h3>US label and claims gate</h3><ul class="clean">
+      <li>FDA: claims to cure, treat, prevent or mitigate disease can make a product an unapproved new animal drug.</li>
+      <li>FDA counts off-pack claims too: a Nov 2024 warning letter cited a company's Facebook and third-party pages.</li>
+      <li>Product name checked against AAFCO's 95% / 25% / "with" / "flavor" rules.</li>
+      <li>Refreshes built in the new Pet Nutrition Facts format (AAFCO PFLM, approved 31 Jul 2023).</li>
+    </ul></div>
+  </div>
+  <div class="card sec"><h3>Monday update, generated from the plan (excerpt)</h3><pre class="status" id="upd" style="font-size:8.6px;line-height:1.4;padding:8px 10px;border-radius:8px"></pre></div>
+  <div class="foot"><span>Sources: FDA, Animal Food Labeling and Pet Food Claims · FDA warning letter, 12 Nov 2024 · AAFCO, Pet Food Label Modernization · Virginia Tech FST-434</span><span>page 2 of 2</span></div>
+</section>
+
+<script src="../site/cpm.js"></script>
+<script src="../site/plan.js"></script>
+<script src="../site/content.js"></script>
+<script src="../site/app.js"></script>
+<script>
+(() => {
+  const L = window.__LC, P = window.PLAN, C = window.CONTENT, $ = s => document.querySelector(s);
+  const { BASE, D, short, fmt } = L;
+  // stats: reuse the live page's
+  $('#pstats').innerHTML = $('#stats').innerHTML;
+  // gantt + legend
+  const plan = $('#p-plan .card.scroll');
+  $('#gantt').append(...[...plan.children].map(n => n.cloneNode(true)));
+  // what the plan says
+  const says = [...document.querySelectorAll('#p-plan .clean li')].map(li => li.textContent);
+  $('#says').innerHTML = says.map(s => `<li>${s}</li>`).join('');
+  // scenario table
+  const rows = P.scenarios.filter(s => !s.fix).map(s => `<tr><td>${s.label}<br><span class="note">${s.note}</span></td><td class="d crit">+${L.deltaOf(s)} d</td><td class="d">${s.cost ? '$' + s.cost.toLocaleString('en-US') : '–'}</td></tr>`).join('');
+  $('#scen').innerHTML = `<thead><tr><th>Slip</th><th class="num">Go-live</th><th class="num">Cost</th></tr></thead><tbody>${rows}<tr><td><b class="okc">Fix:</b> route copy on formulation values; lab confirms before the printer proof</td><td class="d okc">retest +${L.deltaOf(L.retest)} → +${L.retestAfterFix}</td><td class="d">$0</td></tr></tbody>`;
+  // portfolio
+  const pf = $('#p-portfolio .card.scroll');
+  $('#pf').append(...[...pf.children].map(n => n.cloneNode(true)));
+  $('#conf').append(...[...$('#p-portfolio').children].slice(-1)[0].firstElementChild.cloneNode(true).children);
+  // gates
+  const m = Object.fromEntries(BASE.tasks.map(t => [t.id, t]));
+  const when = { G0: 'before the brief', G1: 'before the brief', G2: short(D(m.G2.es)), G3: short(D(m.G3.es)), G4: short(D(m.G4.es)) };
+  $('#gates').innerHTML = C.gates.map(g => `<div class="gl" style="padding:3px 0;border-bottom:1px solid var(--line)"><b>${g.id} ${g.name}</b> · ${when[g.id]}<br><span class="note">signs: ${g.owner} · ${g.items.length} checks</span></div>`).join('');
+  // routing
+  $('#route').innerHTML = C.routing.map(r => `<li><b>${r.step}</b> · <span class="who">${r.who}</span></li>`).join('');
+  // status excerpt: go-live, budget, first two decisions
+  const txt = L.statusText().split('\n');
+  const di = txt.findIndex(l => /^DECISIONS NEEDED/.test(l));
+  const pick = [txt.find(l => /^GO-LIVE/.test(l)), txt.find(l => /^BUDGET/.test(l)), '', ...txt.slice(di, di + 2)];
+  $('#upd').textContent = pick.join('\n').replace(/\n{3,}/g, '\n\n');
+})();
+</script>
+</body>
+</html>

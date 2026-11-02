@@ -1,0 +1,6 @@
+{ "name": "launch-control-sample", "private": true, "version": "1.0.0",
+  "scripts": {
+    "dev": "npx serve site",
+    "test": "node --test test/cpm.test.mjs",
+    "pdf": "node build_pdf.js print/print.html dist/launch-control-sample.pdf && cp dist/launch-control-sample.pdf site/",
+    "build": "echo 'static site, nothing to build'" } }
